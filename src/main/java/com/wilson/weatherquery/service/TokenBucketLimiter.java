@@ -35,16 +35,16 @@ public class TokenBucketLimiter {
     @Scheduled(fixedRate = 1000)
     public void refill() {
         Long tokenCount = redisTemplate.opsForList().size(TOKEN_BUCKET_KEY);
-        System.out.println("当前令牌数量：" + tokenCount + ", 最大令牌数量：" + MAX_TOKENS);  // 添加日志
+//        System.out.println("当前令牌数量：" + tokenCount + ", 最大令牌数量：" + MAX_TOKENS);  // 添加日志
 
         // 如果令牌桶中的令牌数量小于最大容量，则继续添加令牌
         if (tokenCount != null && tokenCount < MAX_TOKENS) {
             for (int i = 0; i < REFILL_RATE; i++) {
                 redisTemplate.opsForList().leftPush(TOKEN_BUCKET_KEY, "token");
             }
-            System.out.println("Refilled token.");  // 日志输出
+//            System.out.println("Refilled token.");  // 日志输出
         } else {
-            System.out.println("令牌桶已满，未添加新的令牌");  // 日志输出
+//            System.out.println("令牌桶已满，未添加新的令牌");  // 日志输出
         }
     }
 
